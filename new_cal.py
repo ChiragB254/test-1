@@ -2,31 +2,21 @@ def calculator():
     while True:
         try:
             num1 = float(input("Enter first number: "))
-            operator = input("Enter operator (+, -, *, /): ")
+            operator = input("Enter operator (+, -, *, /): ").strip()
             num2 = float(input("Enter second number: "))
             
-            if operator == '+':
-                result = num1 + num2
-            elif operator == '-':
-                result = num1 - num2
-            elif operator == '*':
-                result = num1 * num2
-            elif operator == '/':
-                if num2 == 0:
-                    print("Error: Division by zero is not allowed.")
-                    continue
-                result = num1 / num2
-            else:
-                print("Invalid operator. Please use +, -, *, or /.")
-                continue
+            operations = {'+': num1 + num2, '-': num1 - num2, '*': num1 * num2, '/': num1 / num2 if num2 != 0 else "Error: Division by zero is not allowed."}
             
+            result = operations.get(operator, "Invalid operator. Please use +, -, *, or /.")
             print(f"Result: {result}")
         except ValueError:
             print("Invalid input. Please enter numeric values.")
+        except ZeroDivisionError:
+            print("Error: Division by zero is not allowed.")
         
         again = input("Do you want to calculate again? (yes/no): ").strip().lower()
         if again != 'yes':
             break
 
-# Run the calculator
-calculator()
+if __name__ == "__main__":
+    calculator()
